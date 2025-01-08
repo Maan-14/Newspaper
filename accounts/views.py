@@ -1,5 +1,9 @@
-from django.contrib.auth.models import AbstractUser
-from django.db import models
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
 
-class CustomUser(AbstractUser):
-    age = models.PositiveIntegerField(null=True, blank=True)
+from .forms import CustomUserCreationForm
+
+class SignUpView(CreateView):
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy('login')
+    template_name = "registration/signup.html"
