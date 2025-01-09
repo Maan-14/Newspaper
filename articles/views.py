@@ -30,5 +30,8 @@ class ArticleCreateView(CreateView): # new
     fields = (
         "title",
         "body",
-        "author",
     )
+
+    def form_valid(self, form): # new
+        form.instance.author = self.request.user
+        return super().form_valid(form)
