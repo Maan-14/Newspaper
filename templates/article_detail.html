@@ -1,4 +1,7 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
 <div class="article-entry">
   <h2>{{ object.title }}</h2>
   <p>by {{ object.author }} | {{ object.date }}</p>
@@ -10,6 +13,11 @@
 <p>{{ comment.author }} &middot; {{ comment }}</p>
 {% endfor %}
 <hr>
+<h4>Add a comment</h4>
+<form action="" method="post">{% csrf_token %}
+  {{ form|crispy }}
+  <button class="btn btn-success ml-2" type="submit">Save</button>
+</form>
 <p>
   <a href="{% url 'article_edit' article.pk %}">Edit</a> |
   <a href="{% url 'article_delete' article.pk %}">Delete</a>
